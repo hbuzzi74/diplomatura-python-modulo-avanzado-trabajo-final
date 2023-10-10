@@ -206,23 +206,23 @@ if __name__ == "__main__":
         registro['demora_reposicion'] = int(random.randrange(0, 10))
         clase_base_de_datos.agregar_material(registro)
 
-    # Código agregado para la tarea del módulo 1 - unidad 3 de Python Avanzado
-    # El decorador de alta de registros ya fue utilizado en le última línea del ciclo for
-    # Se agrega a continuación el uso de decoradores para modificación y eliminación de registros
-    print("=" * 80)
-    print("Tarea del módulo 1 - unidad 3 de Python Avanzado (decoradores)")
+    # # Código agregado para la tarea del módulo 1 - unidad 3 de Python Avanzado
+    # # El decorador de alta de registros ya fue utilizado en le última línea del ciclo for
+    # # Se agrega a continuación el uso de decoradores para modificación y eliminación de registros
+    # print("=" * 80)
+    # print("Tarea del módulo 1 - unidad 3 de Python Avanzado (decoradores)")
 
-    # Obtener y modificar un registro de prueba
-    registros = clase_base_de_datos.consultar_todos_los_materiales()
-    registro_de_prueba = registros[-1]
-    print("Registro de prueba: " + str(registro_de_prueba))
-    print("Incrementando el stock actual en 10 unidades")
-    registro_de_prueba['stock_actual'] += 10
+    # # Obtener y modificar un registro de prueba
+    # registros = clase_base_de_datos.consultar_todos_los_materiales()
+    # registro_de_prueba = registros[-1]
+    # print("Registro de prueba: " + str(registro_de_prueba))
+    # print("Incrementando el stock actual en 10 unidades")
+    # registro_de_prueba['stock_actual'] += 10
 
-    # Actualizar el registro
-    clase_base_de_datos.actualizar_material(
-        int(registro_de_prueba['id']), registro_de_prueba)
+    # # Actualizar el registro
+    # clase_base_de_datos.actualizar_material(
+    #     int(registro_de_prueba['id']), registro_de_prueba)
 
-    # Eliminar el registro
-    registro_de_prueba = registros[-2]
-    clase_base_de_datos.eliminar_material(int(registro_de_prueba['id']))
+    # # Eliminar el registro
+    # registro_de_prueba = registros[-2]
+    # clase_base_de_datos.eliminar_material(int(registro_de_prueba['id']))
