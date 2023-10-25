@@ -1,3 +1,4 @@
 {
-    "nombre_base_de_datos": "materiales.db"
+    "nombre_base_de_datos": "materiales.db",
+    "other_key": "other_value"
 }
