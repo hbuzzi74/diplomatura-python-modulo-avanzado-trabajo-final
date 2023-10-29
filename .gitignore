@@ -1,0 +1,6 @@
+src/__pycache__/controlador.cpython-310.pyc
+src/__pycache__/gestor_base_de_datos_sqlite3.cpython-310.pyc
+src/__pycache__/modelo.cpython-310.pyc
+src/__pycache__/utilidades.cpython-310.pyc
+src/__pycache__/vista.cpython-310.pyc
+materiales.db

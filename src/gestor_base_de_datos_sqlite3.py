@@ -32,8 +32,8 @@ db.create_tables([Materiales])
 def decorador_agregar_material(metodo):
 
     def envoltura(*args):
-        print(
-            "Función 'decorador_agregar_material' - se va a insertar un registro con la siguiente información", args[1])
+        texto = f"Función 'decorador_agregar_material' - Insertando registro con los siguientes campos: {str(args[1])}"
+        utilidades.escribir_archivo_de_logs(texto=texto)
         return metodo(*args)
     return envoltura
 
@@ -41,8 +41,8 @@ def decorador_agregar_material(metodo):
 def decorador_modificar_material(metodo):
 
     def envoltura(*args):
-        print(
-            "Función 'decorador_modificar_material' - se va a modificar un registro de material con id ", args[1])
+        texto = f"Función 'decorador_modificar_material' - Modificando registro con id #{args[1].get()} y los siguientes campos: {str(args[2])}"
+        utilidades.escribir_archivo_de_logs(texto=texto)
         return metodo(*args)
     return envoltura
 
@@ -50,8 +50,8 @@ def decorador_modificar_material(metodo):
 def decorador_eliminar_material(metodo):
 
     def envoltura(*args):
-        print(
-            "Función 'decorador_eliminar_material' - se va a eliminar un registro de material con id ", args[1])
+        texto = f"Función 'decorador_eliminar_material' - Eliminando registro con id #{args[1]}"
+        utilidades.escribir_archivo_de_logs(texto=texto)
         return metodo(*args)
     return envoltura
 
@@ -95,7 +95,6 @@ class gestor_base_de_datos_sqlite3():
     # homónimo declarado como variable de clase.
     # ----------------------------------------------------------------------------------------------------------------------------
 
-    @decorador_agregar_material
     def agregar_material(self, diccionario_material):
 
         materiales = Materiales()
@@ -150,7 +149,6 @@ class gestor_base_de_datos_sqlite3():
     # nuevo_diccionario_material, el cual es un diccionario con el formato de
     # self.campos_material
     # ----------------------------------------------------------------------------------------------------------------------------
-    @decorador_modificar_material
     def actualizar_material(self, id_material, nuevo_diccionario_material):
 
         if not isinstance(id_material, int):
@@ -172,16 +170,15 @@ class gestor_base_de_datos_sqlite3():
     # Si el registro es encontrado y eliminado, el método devuelte True, de
     # otra forma devuelve False.
     # ----------------------------------------------------------------------------------------------------------------------------
-    @decorador_eliminar_material
     def eliminar_material(self, id_material):
         eliminar = Materiales.delete().where(Materiales.id == id_material)
         filas_eliminadas = eliminar.execute()
         if filas_eliminadas == 1:
             utilidades().mostrar_mensaje(utilidades.INFO, "Se eliminó un registro de la tabla 'Materiales'"
-                                         + f" con id=[{id_material}].")
+                                         + f" con id={id_material}.")
         else:
             utilidades().mostrar_mensaje(utilidades.ERROR, "No se pudo eliminar el registro de la tabla 'Materiales'"
-                                         + f" con id=[{id_material}]: el registro no fue encontrado.")
+                                         + f" con id={id_material}: el registro no fue encontrado.")
             return False
 
         return True

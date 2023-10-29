@@ -1,0 +1,12 @@
+[2023/10/29 16:27:12][INFO]  Se leyeron [6] registro(s) de la tabla 'Materiales'
+[2023/10/29 16:27:41][INFO]  Se actualizó el registro de la tabla 'Materiales' con id=[1]. Nuevos valores: {'descripcion': 'Primer registro', 'stock_actual': 101, 'stock_reposicion': 102, 'demora_reposicion': 103}
+[2023/10/29 16:27:42][INFO]  Se leyeron [6] registro(s) de la tabla 'Materiales'
+[2023/10/29 16:28:05][INFO]  Se eliminó un registro de la tabla 'Materiales' con id=[[5]].
+[2023/10/29 16:28:07][INFO]  Se leyeron [5] registro(s) de la tabla 'Materiales'
+[2023/10/29 16:28:28][INFO]  Se actualizó el registro de la tabla 'Materiales' con id=[2]. Nuevos valores: {'descripcion': 'Segundo registro', 'stock_actual': 201, 'stock_reposicion': 202, 'demora_reposicion': 203}
+[2023/10/29 16:28:30][INFO]  Se leyeron [5] registro(s) de la tabla 'Materiales'
+[2023/10/29 16:30:36][INFO]  Se leyeron [5] registro(s) de la tabla 'Materiales'
+[2023/10/29 16:30:45][INFO]  Se actualizó el registro de la tabla 'Materiales' con id=[6]. Nuevos valores: {'descripcion': 'Quinto registro', 'stock_actual': 5011, 'stock_reposicion': 5022, 'demora_reposicion': 5033}
+[2023/10/29 16:30:47][INFO]  Se leyeron [5] registro(s) de la tabla 'Materiales'
+[2023/10/29 16:31:02][INFO]  Se eliminó un registro de la tabla 'Materiales' con id=[[6]].
+[2023/10/29 16:31:06][INFO]  Se leyeron [4] registro(s) de la tabla 'Materiales'

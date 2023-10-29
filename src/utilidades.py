@@ -10,6 +10,36 @@ import os
 import datetime
 import re
 
+NOMBRE_ARCHIVO_LOGS = 'logs.txt'
+
+# Este decorador es invocado cuando se llama el método mostrar_mensaje de la clase utilidades.
+# Su función es escribir en el archivo logs.txt aquella información que se está enviando a la consola,
+# de forma tal de disponer de un archivo con fecha, hora y texto de cada mensaje dentro del archivo de logs.
+
+
+def decorador_mostrar_mensaje(metodo):
+
+    def envoltura(*args):
+
+        nombre_archivo_logs = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            NOMBRE_ARCHIVO_LOGS
+        )
+
+        try:
+            texto_formateado = utilidades.formatear_mensaje(
+                args[1], args[2]) + '\n'
+            archivo_logs = open(nombre_archivo_logs, 'a')
+            archivo_logs.write(texto_formateado)
+            archivo_logs.close()
+
+        except Exception as e:
+            print(
+                f"Error escribiendo el archivo {NOMBRE_ARCHIVO_LOGS}: {e.args[0]}")
+
+        return metodo(*args)
+    return envoltura
+
 
 class utilidades():
 
@@ -26,11 +56,33 @@ class utilidades():
     EXPRESION_REGULAR_SOLO_LETRAS = "^[A-Za-z ]+(?:[ _-][A-Za-z]+)*$"
     EXPRESION_REGULAR_SOLO_NUMEROS = "^[0-9]+$"
 
+    @classmethod
+    def escribir_archivo_de_logs(self, nombre_archivo_logs=NOMBRE_ARCHIVO_LOGS, texto=""):
+
+        nombre_archivo_logs = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            NOMBRE_ARCHIVO_LOGS
+        )
+
+        try:
+            texto_formateado = utilidades.formatear_mensaje(
+                utilidades.INFO, texto) + '\n'
+            print(texto_formateado)
+            archivo_logs = open(nombre_archivo_logs, 'a')
+            archivo_logs.write(texto_formateado)
+            archivo_logs.close()
+
+        except Exception as e:
+            print(
+                f"Error escribiendo el archivo {NOMBRE_ARCHIVO_LOGS}: {e.args[0]}")
+
     # ----------------------------------------------------------------------------------------------------------------------------
-    # Mostrar un mensaje en consola de tipo informativo o de error, incluyendo
-    # la fecha y hora. Este método no devuelve ningún valor.
+    # Formatear un text de forma tal de anteponer el itpo de mensaje (información o error)
+    # y un timestamp indicando cuándo se generó el mismo
     # ----------------------------------------------------------------------------------------------------------------------------
-    def mostrar_mensaje(self, tipo_mensaje, texto_mensaje):
+
+    @classmethod
+    def formatear_mensaje(self, tipo_mensaje, texto_mensaje):
 
         if tipo_mensaje == self.INFO:
             tipo_mensaje = "[INFO]  "
@@ -47,7 +99,18 @@ class utilidades():
                                                                    fecha_actual.minute,
                                                                    fecha_actual.second))
         timestamp = "[" + fecha_formateada + "]"
-        print(timestamp + tipo_mensaje + texto_mensaje)
+        return (timestamp + tipo_mensaje + texto_mensaje)
+
+    # ----------------------------------------------------------------------------------------------------------------------------
+    # Mostrar un mensaje en consola de tipo informativo o de error, incluyendo
+    # la fecha y hora. Este método no devuelve ningún valor.
+    # ----------------------------------------------------------------------------------------------------------------------------
+    @decorador_mostrar_mensaje
+    def mostrar_mensaje(self, tipo_mensaje, texto_mensaje):
+
+        mensaje_formateado = utilidades.formatear_mensaje(
+            tipo_mensaje, texto_mensaje)
+        print(mensaje_formateado)
 
     # ----------------------------------------------------------------------------------------------------------------------------
     # Obtener el nombre de la base dedatos que será utilizada por la

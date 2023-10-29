@@ -138,6 +138,13 @@ class clase_vista():
         treeview_materiales.place(x=10, y=5, width=640, height=190)
         treeview_materiales.bind(
             "<Double-1>", self.controlador.click_en_material)
+
+        treeview_materiales.bind(
+            '<FocusOut>', self.controlador.click_en_material)
+        treeview_materiales.bind('<Leave>', self.controlador.click_en_material)
+        treeview_materiales.bind(
+            '<Return>', self.controlador.click_en_material)
+
         ToolTip(treeview_materiales, msg="Muestra todos los materiales de la tabla 'Materiales'."
                 + " Con doble click se ingresa al modo edición/borrado del material.", delay=1)
 

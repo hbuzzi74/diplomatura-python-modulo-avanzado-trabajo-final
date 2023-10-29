@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<html lang="es" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Introducción &#8212; documentación de Gestor de Materiales - 1.0</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <script src="_static/documentation_options.js?v=4936afed"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/translations.js?v=efdbd0b9"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="Alta de un material" href="alta.html" />
+    <link rel="prev" title="Bienvenido a la documentación del Gestor de Materiales!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="introduccion">
+<h1>Introducción<a class="headerlink" href="#introduccion" title="Link to this heading">¶</a></h1>
+<p>La aplicación permite realizar la gestión de materiales, definiendo los precedimientos para crear, leer, actualizar y eliminar (CRUD) registros de una tabla de materiales.</p>
+<p>Al iniciar la aplicación, se cargan todos los materiales existentes desde la base de datos hacia la lista de materiales:</p>
+<img alt="Lista inicial de materiales" class="align-center" src="_images/lista_de_materiales.png" />
+<p>En la parte superior de la pantalle se encuentra el editor del <em>Material actual</em>, compuesto por los siguientes campos:</p>
+<ul class="simple">
+<li><p>Descripción: identificación del material. Solo admite caracteres alfabéticos (letras y espacios en blanco).</p></li>
+<li><p>Stock actual: cantidad de unidades en existencia del material. Solo admite dígitos numéricos (0 a 9).</p></li>
+<li><p>Stock reposición: cantidad de unidades en stock a partir de la cual se dispara el pedido de reposición del material. Solo admite dígitos numéricos (0 a 9).</p></li>
+<li><p>Demora reposición: cantidad de días que transcurren desde que se realiza el pedido de reposición de stock y el momento en el cual el proveedor entrega el pedido (demora). Solo admite dígitos numéricos (0 a 9).</p></li>
+</ul>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Gestor de Materiales</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navegación</h3>
+<p class="caption" role="heading"><span class="caption-text">MANUAL DEL USUARIO:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introducción</a></li>
+<li class="toctree-l1"><a class="reference internal" href="alta.html">Alta de un material</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modificacion.html">Modificación de un material</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baja.html">Eliminación de un material</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="capítulo anterior">Bienvenido a la documentación del <strong>Gestor de Materiales</strong>!</a></li>
+      <li>Next: <a href="alta.html" title="próximo capítulo">Alta de un material</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Hernán Buzzi.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/manual.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -22,7 +22,7 @@ class clase_controlador():
         self.treeview_materiales = treeview_materiales
 
     # ----------------------------------------------------------------------------------------------------------------------------
-    # Guarda una referencia a los obtejos Entry (text fields) de tkinter para poder
+    # Guarda una referencia a los objetos Entry (text fields) de tkinter para poder
     # leer valores de ellos sin requerir acceder a la clase de la vista.
     # ----------------------------------------------------------------------------------------------------------------------------
     def obtener_campos_material(self, campos_material):
