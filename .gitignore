@@ -4,3 +4,5 @@ src/__pycache__/modelo.cpython-310.pyc
 src/__pycache__/utilidades.cpython-310.pyc
 src/__pycache__/vista.cpython-310.pyc
 materiales.db
+src/logs.txt
+src/__pycache__/observador.cpython-310.pyc

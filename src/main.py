@@ -5,13 +5,16 @@ from modelo import clase_modelo
 from controlador import clase_controlador
 from vista import clase_vista
 from gestor_base_de_datos_sqlite3 import gestor_base_de_datos_sqlite3
+from observador import *
 
 if __name__ == '__main__':
 
+    # Se crea el objeto encargado de gestionar la base de datos
     db = gestor_base_de_datos_sqlite3()
-    # registros = db.consultar_todos_los_materiales()
-    # for registro in registros:
-    #     print(registro)
+
+    # Se crea un observador para la base de datos
+    observador = observador_base_de_datos(db)
+    db.guardar_observador_base_de_datos(observador)
 
     # Se crea el modelo, el cual guarda el objeto de base de datos
     modelo = clase_modelo(db)

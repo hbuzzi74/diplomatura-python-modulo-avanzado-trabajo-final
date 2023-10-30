@@ -25,37 +25,6 @@ db.connect()
 db.create_tables([Materiales])
 
 ################################################################################
-# DECORADORES
-################################################################################
-
-
-def decorador_agregar_material(metodo):
-
-    def envoltura(*args):
-        texto = f"Función 'decorador_agregar_material' - Insertando registro con los siguientes campos: {str(args[1])}"
-        utilidades.escribir_archivo_de_logs(texto=texto)
-        return metodo(*args)
-    return envoltura
-
-
-def decorador_modificar_material(metodo):
-
-    def envoltura(*args):
-        texto = f"Función 'decorador_modificar_material' - Modificando registro con id #{args[1].get()} y los siguientes campos: {str(args[2])}"
-        utilidades.escribir_archivo_de_logs(texto=texto)
-        return metodo(*args)
-    return envoltura
-
-
-def decorador_eliminar_material(metodo):
-
-    def envoltura(*args):
-        texto = f"Función 'decorador_eliminar_material' - Eliminando registro con id #{args[1]}"
-        utilidades.escribir_archivo_de_logs(texto=texto)
-        return metodo(*args)
-    return envoltura
-
-################################################################################
 # GESTOR DE BASE DE DATOS
 ################################################################################
 
@@ -75,6 +44,17 @@ class gestor_base_de_datos_sqlite3():
         "demora_reposicion": 0
     }
 
+    # Este diccionario lleva cuenta de la cantidad de altas, bajas, modificaciones y consultas realizadas en la base de datos
+    actualizaciones = {
+        'altas': 0,
+        'bajas': 0,
+        'modificaciones': 0,
+        'consultas': 0
+    }
+
+    # La siguiente variable guarda la referencia al observador de la base de datos
+    observador_base_de_datos = None
+
     # ----------------------------------------------------------------------------------------------------------------------------
     # Obtiene el id de registro de un material buscándolo por su descripción.
     # Si el material no es encontrado se retorna el valor -1.
@@ -85,6 +65,9 @@ class gestor_base_de_datos_sqlite3():
         consulta.execute()
         if consulta.count() == 0:   # Si no se encontró un registro coincidente
             return -1
+
+        self.observador_base_de_datos.registrar_actualizacion(
+            self.observador_base_de_datos.ACTUALIZACION_CONSULTA)
 
         # Devolver el id de registro (entero)
         return consulta.first().__dict__['__data__']['id']
@@ -110,6 +93,9 @@ class gestor_base_de_datos_sqlite3():
             utilidades().mostrar_mensaje(utilidades.ERROR, "No se puede escribir en la tabla 'Materiales': "
                                          + f"el material [{diccionario_material['descripcion']}] ya existe en la tabla!")
             return False
+
+        self.observador_base_de_datos.registrar_actualizacion(
+            self.observador_base_de_datos.ACTUALIZACION_ALTA)
 
         return True
 
@@ -138,6 +124,10 @@ class gestor_base_de_datos_sqlite3():
         consulta.execute()
         utilidades().mostrar_mensaje(utilidades.INFO, f"Se leyeron [{consulta.count()}] registro(s)"
                                      + " de la tabla 'Materiales'")
+
+        self.observador_base_de_datos.registrar_actualizacion(
+            self.observador_base_de_datos.ACTUALIZACION_CONSULTA)
+
         for registro_actual in consulta:
             registros.append(registro_actual.__dict__['__data__'])
 
@@ -163,6 +153,10 @@ class gestor_base_de_datos_sqlite3():
             utilidades().mostrar_mensaje(utilidades.ERROR, "No se pudo actualizar el registro de la tabla 'Materiales'"
                                          + f" con id=[{id_material}]: el registro no fue encontrado.")
             return False
+
+        self.observador_base_de_datos.registrar_actualizacion(
+            self.observador_base_de_datos.ACTUALIZACION_MODIFICACION)
+
         return True
 
     # ----------------------------------------------------------------------------------------------------------------------------
@@ -181,7 +175,17 @@ class gestor_base_de_datos_sqlite3():
                                          + f" con id={id_material}: el registro no fue encontrado.")
             return False
 
+        self.observador_base_de_datos.registrar_actualizacion(
+            self.observador_base_de_datos.ACTUALIZACION_BAJA)
+
         return True
+
+    # ----------------------------------------------------------------------------------------------------------------------------
+    # Este método guarda una referencia a la instancia de la clase observador que registra las altas,
+    # bajas, modificaciones y consultas de la base de datos.
+    # ----------------------------------------------------------------------------------------------------------------------------
+    def guardar_observador_base_de_datos(self, observador_base_de_datos):
+        self.observador_base_de_datos = observador_base_de_datos
 
 
 # --------------------------------------------------------------------------------------------------------------------------------
@@ -202,24 +206,3 @@ if __name__ == "__main__":
         registro['stock_reposicion'] = int(random.randrange(0, 20))
         registro['demora_reposicion'] = int(random.randrange(0, 10))
         clase_base_de_datos.agregar_material(registro)
-
-    # # Código agregado para la tarea del módulo 1 - unidad 3 de Python Avanzado
-    # # El decorador de alta de registros ya fue utilizado en le última línea del ciclo for
-    # # Se agrega a continuación el uso de decoradores para modificación y eliminación de registros
-    # print("=" * 80)
-    # print("Tarea del módulo 1 - unidad 3 de Python Avanzado (decoradores)")
-
-    # # Obtener y modificar un registro de prueba
-    # registros = clase_base_de_datos.consultar_todos_los_materiales()
-    # registro_de_prueba = registros[-1]
-    # print("Registro de prueba: " + str(registro_de_prueba))
-    # print("Incrementando el stock actual en 10 unidades")
-    # registro_de_prueba['stock_actual'] += 10
-
-    # # Actualizar el registro
-    # clase_base_de_datos.actualizar_material(
-    #     int(registro_de_prueba['id']), registro_de_prueba)
-
-    # # Eliminar el registro
-    # registro_de_prueba = registros[-2]
-    # clase_base_de_datos.eliminar_material(int(registro_de_prueba['id']))
